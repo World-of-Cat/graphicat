@@ -1,15 +1,16 @@
-use graphicat::winit;
-use graphicat::winit::dpi::PhysicalSize;
-use graphicat::winit::event_loop::EventLoop;
-use graphicat::winit::window::WindowBuilder;
+extern crate glfw;
+
+use graphicat::gpu::{GpuSelectionParameters, PhysicalDevice};
+use graphicat::instance::Instance;
 
 fn main() {
-    let event_loop = EventLoop::new().unwrap();
+    let glfw = glfw::init(glfw::fail_on_errors).unwrap();
 
-    let window = WindowBuilder::new()
-        .with_inner_size(PhysicalSize::new(800, 600))
-        .with_resizable(false)
-        .build(&event_loop).unwrap();
+    let instance = unsafe { Instance::new(&glfw) }.unwrap();
+    let physical_device = PhysicalDevice::select(instance, GpuSelectionParameters::default()).unwrap();
 
+    println!("GPU: {}", physical_device.name());
+    println!("GPU Type: {:?}", physical_device.device_type());
 
+    println!("Required Extensions: {:?}", graphicat::gpu::required_device_extensions());
 }

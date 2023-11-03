@@ -47,6 +47,7 @@ version = "0.53.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "0e7fd55342491ead96820a367cd55808115f47f1dc9a643ae825a2655989b73e"
 dependencies = [
+ "ash",
  "bitflags",
  "glfw-sys",
  "objc",
